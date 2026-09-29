@@ -1,0 +1,307 @@
+{
+  "@@locale": "tr",
+  "appTagline": "Yolculuğun sinema salonu",
+  "retry": "Tekrar dene",
+  "cancel": "Vazgeç",
+  "save": "Kaydet",
+  "play": "Oynat",
+  "close": "Kapat",
+  "back": "Geri",
+  "refresh": "Yenile",
+  "homePage": "Ana sayfa",
+  "otherGroup": "Diğer",
+  "navHome": "Ana Sayfa",
+  "navFavorites": "Favoriler",
+  "navCast": "Araca Yansıt",
+  "navSettings": "Ayarlar",
+  "searchHint": "Kanal, film veya dizi ara",
+  "libraryLoadFailed": "Kütüphane yüklenemedi",
+  "emptyHomeTitle": "Sinema salonun hazır",
+  "emptyHomeMessage": "M3U listeni ya da Jellyfin/Emby sunucunu ekle; kanalların gruplarıyla birlikte burada belirsin.",
+  "sourcesUnreachable": "Kaynaklara ulaşılamadı",
+  "addSource": "Kaynak ekle",
+  "heroFavorite": "FAVORİN",
+  "heroWatchNow": "ŞİMDİ İZLE",
+  "channelCount": "{count} kanal",
+  "@channelCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noResults": "Sonuç yok",
+  "noResultsMessage": "Farklı bir kelimeyle tekrar dene.",
+  "sourcesFailed": "{count} kaynak yüklenemedi: {names}",
+  "@sourcesFailed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "apps": "Uygulamalar",
+  "appInside": "OtoTV içinde",
+  "appInBrowser": "Tarayıcıda açılır",
+  "appOpenFailed": "{name} açılamadı.",
+  "@appOpenFailed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nowPlayingBadge": "OYNATILIYOR",
+  "favoriteAdded": "{name} favorilere eklendi",
+  "@favoriteAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "favoriteRemoved": "{name} favorilerden çıkarıldı",
+  "@favoriteRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "carMode": "Araç Modu",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "addFavorite": "Favorilere ekle",
+  "removeFavorite": "Favorilerden çıkar",
+  "epgNext": "SONRA",
+  "favoritesEmptyTitle": "Henüz favori yok",
+  "favoritesEmptyMessage": "Bir kanala basılı tutarak favorilerine ekle; en sevdiklerin burada, tek dokunuş uzağında.",
+  "browseChannels": "Kanallara göz at",
+  "castPhone": "Telefon",
+  "castCarScreen": "Araç ekranı",
+  "castNotConnected": "Araç bağlı değil",
+  "castNotConnectedMessage": "iPhone'unu CarPlay'e ya da Android telefonunu aracına bağla; OtoTV bağlantıyı otomatik algılar.",
+  "castStep1Title": "Aracını bağla",
+  "castStep1Body": "USB kablo veya kablosuz CarPlay / Android Auto ile.",
+  "castStep2Title": "İçeriğini seç",
+  "castStep2Body": "Kanal, film veya kendi sunucundan bir bölüm aç.",
+  "castStep3Title": "Araç ekranında aç",
+  "castStep3Body": "Araç ekranındaki uygulamalardan OtoTV'yi seç, bir kanala dokun; sesi araçta çalar.",
+  "passengerNotice": "Yalnızca yolcular içindir. Sürücü araç kullanırken asla video izlememelidir.",
+  "openCarMode": "Araç Modunu Aç",
+  "openChannelFirst": "Önce Ana Sayfa'dan bir kanal ya da film aç.",
+  "dim": "Karart",
+  "wakeHint": "Uyandırmak için çift dokun",
+  "sources": "Kaynaklar",
+  "sourcesEmptyTitle": "Henüz kaynak yok",
+  "sourcesEmptyMessage": "M3U listeni ya da Jellyfin / Emby sunucunu ekle. Adresler ve oturum bilgileri yalnızca bu cihazda saklanır.",
+  "addFirstSource": "İlk kaynağını ekle",
+  "rename": "Yeniden adlandır",
+  "remove": "Kaldır",
+  "serverUrlRequired": "Sunucu adresini gir.",
+  "listUrlRequired": "Liste adresini gir.",
+  "usernameRequired": "Kullanıcı adını gir.",
+  "username": "Kullanıcı adı",
+  "password": "Şifre",
+  "nameOptional": "Ad (isteğe bağlı)",
+  "qrAdd": "QR ile ekle",
+  "serverPrivacyNote": "Şifren saklanmaz; yalnızca oturum anahtarı cihazının güvenli kasasında tutulur.",
+  "listPrivacyNote": "Liste adresi yalnızca bu cihazda saklanır.",
+  "connect": "Bağlan",
+  "addAndLoad": "Ekle ve yükle",
+  "qrTitle": "QR kodu okut",
+  "qrCameraDenied": "Kameraya erişilemedi. Ayarlar'dan OtoTV için kamera iznini aç.",
+  "qrHint": "Liste adresini içeren QR kodu çerçeveye hizala",
+  "plusCardSubtitle": "Araç Modu, sınırsız kaynak ve daha fazlası",
+  "plusActive": "Plus aktif",
+  "plusActiveSubtitle": "Tüm özellikler açık. Teşekkürler!",
+  "sectionMedia": "Medya",
+  "manageSources": "Kaynakları yönet",
+  "sourceCount": "{count} kaynak",
+  "@sourceCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sectionPreferences": "Tercihler",
+  "language": "Dil",
+  "languageSystem": "Sistem dili",
+  "sectionLegal": "Yasal",
+  "privacyPolicy": "Gizlilik Politikası",
+  "terms": "Kullanım Koşulları (EULA)",
+  "sectionAbout": "Hakkında",
+  "help": "Yardım ve SSS",
+  "version": "Sürüm",
+  "disclaimer": "{appName} yalnızca bir oynatıcıdır; içerik sağlamaz. Eklediğiniz listeleri kullanma hakkına sahip olmaktan siz sorumlusunuz.",
+  "@disclaimer": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallCarModeTitle": "Araç Modu",
+  "paywallCarModeBody": "Torpido için yatay, dev kontrollü sinema arayüzü ve Karartma modu",
+  "paywallSourcesTitle": "Sınırsız kaynak",
+  "paywallSourcesBody": "İstediğin kadar M3U, Jellyfin ve Emby",
+  "paywallCarPlayTitle": "CarPlay ve Android Auto",
+  "paywallCarPlayBody": "Kanallarını araç ekranından seç, direksiyondan kontrol et",
+  "paywallFutureTitle": "Tüm yeni premium özellikler",
+  "paywallFutureBody": "Tek üyelikle gelecekteki her şey dahil",
+  "planMonthly": "Aylık",
+  "planMonthlyDesc": "İstediğin zaman iptal et",
+  "planAnnual": "Yıllık",
+  "planAnnualDesc": "Yılda tek ödeme",
+  "planLifetime": "Ömür boyu",
+  "planLifetimeDesc": "Tek ödeme, sonsuza dek senin",
+  "planTrial": "{period} ücretsiz dene",
+  "@planTrial": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "bestValue": "EN AVANTAJLI",
+  "periodDays": "{count} gün",
+  "@periodDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "periodWeeks": "{count} hafta",
+  "@periodWeeks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "periodMonths": "{count} ay",
+  "@periodMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "periodYears": "{count} yıl",
+  "@periodYears": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "paywallCta": "Plus'a geç",
+  "paywallCtaTrial": "Ücretsiz denemeyi başlat",
+  "paywallLegal": "Ödeme Apple / Google hesabından alınır. Abonelik, dönem bitmeden en az 24 saat önce iptal edilmezse otomatik yenilenir. Aboneliğini mağaza hesap ayarlarından yönetebilirsin.",
+  "restorePurchases": "Satın alımları geri yükle",
+  "restoreSuccess": "Satın alımların geri yüklendi.",
+  "restoreNone": "Geri yüklenecek satın alım bulunamadı.",
+  "purchaseSuccess": "Hoş geldin! OtoTV Plus açıldı.",
+  "purchaseFailed": "Satın alma tamamlanamadı: {message}",
+  "@purchaseFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "storeUnavailable": "Mağazaya şu an ulaşılamıyor. Daha sonra tekrar dene.",
+  "storeNotConfigured": "Bu derlemede mağaza bağlantısı yapılandırılmadı.",
+  "freeSourceLimit": "Ücretsiz sürümde en fazla {count} kaynak ekleyebilirsin.",
+  "@freeSourceLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryOpenFailed": "Kitaplık açılamadı",
+  "libraryEmptyTitle": "Burası boş",
+  "libraryEmptyMessage": "Bu kitaplıkta henüz içerik yok.",
+  "seasonsFailed": "Sezonlar alınamadı",
+  "noEpisodesTitle": "Bölüm yok",
+  "noEpisodesMessage": "Bu dizi için sunucuda bölüm bulunamadı.",
+  "continueWatching": "İzlemeye devam et",
+  "minutesLeft": "{count} dk kaldı",
+  "@minutesLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "minutes": "{count} dk",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errInvalidAddress": "Geçersiz adres.",
+  "errHttpStatus": "Sunucu {code} döndürdü.",
+  "@errHttpStatus": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "errNoPlayable": "Listede oynatılabilir öğe bulunamadı.",
+  "errDownload": "Liste indirilemedi. Adresi ve internet bağlantını kontrol et.",
+  "errServerUnexpected": "Sunucu beklenmeyen bir yanıt verdi.",
+  "errNoSession": "Oturum bulunamadı; sunucuyu yeniden ekle.",
+  "errUnreachable": "Sunucuya ulaşılamadı. Adresi ve ağ bağlantını kontrol et.",
+  "errSessionExpired": "Oturum süresi doldu; sunucuyu yeniden ekle.",
+  "errBadCredentials": "Kullanıcı adı veya şifre hatalı.",
+  "errServerNotFound": "Bu adreste {kind} sunucusu bulunamadı.",
+  "@errServerNotFound": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "errServerStatus": "Sunucu hatası ({code}).",
+  "@errServerStatus": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "errUnknown": "Beklenmeyen bir hata oluştu.",
+  "notificationChannel": "Oynatma",
+  "notificationChannelDesc": "Ekran kapalıyken oynatma kontrolleri",
+  "carFavorites": "Favoriler",
+  "carChannels": "Kanallar",
+  "carContinue": "{server} · İzlemeye devam et",
+  "carNoSources": "Kanal eklemek için telefonda OtoTV'yi aç",
+  "carEmpty": "Burada henüz bir şey yok",
+  "@carContinue": {
+    "placeholders": {
+      "server": {
+        "type": "String"
+      }
+    }
+  },
+  "previewNotice": "Önizleme: mağaza bağlanınca gerçek fiyatlar burada görünür.",
+  "previewPurchase": "Önizleme modu: satın alma mağaza bağlanınca çalışır.",
+  "carPlusRequired": "Araç ekranı OtoTV Plus ile açılır",
+  "castConnectedAndroidAuto": "Android Auto bağlı",
+  "castConnectedAutomotive": "Araç sistemi bağlı",
+  "castConnectedCarPlay": "CarPlay bağlı",
+  "castConnectedMessage": "Araç ekranındaki uygulamalardan OtoTV'yi aç. Kanal seçince sesi araç hoparlöründen çalar; video telefonda Araç Modu'nda oynar.",
+  "castNeedsPlus": "Araç ekranında OtoTV'yi kullanmak için Plus gerekli.",
+  "castGetPlus": "Plus'ı incele"
+}

@@ -1,0 +1,7 @@
+# Bu dosyayı key.properties olarak kopyala ve kendi bilgilerinle doldur.
+# key.properties ve .jks dosyası Git'e GİRMEZ; yedeğini güvenli bir yerde tut.
+# Yükleme anahtarını kaybedersen Play Console'dan sıfırlama talebi gerekir.
+storeFile=C:/ototv-keys/ototv-upload.jks
+storePassword=
+keyAlias=ototv-upload
+keyPassword=

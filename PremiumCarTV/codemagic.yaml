@@ -1,0 +1,90 @@
+# OtoTV bulut derlemeleri (codemagic.io). Mac gerektirmeden iOS derlemesi alır.
+#
+# Codemagic panelinde bir kez tanımlanacaklar (docs/ODEME_KURULUM.md, adım 5):
+#   • Ortam değişkeni grubu "ototv_secrets":
+#       RC_ANDROID_KEY, RC_IOS_KEY      RevenueCat genel SDK anahtarları
+#       APP_STORE_APPLE_ID              App Store Connect'teki uygulama kimliği (sayı)
+#       GCLOUD_SERVICE_ACCOUNT_CREDENTIALS  Google Play hizmet hesabı JSON'u
+#   • Teams › Integrations › App Store Connect: "OtoTV ASC" adlı API anahtarı
+#   • Code signing identities › Android keystores: "ototv_upload" referanslı yükleme anahtarı
+
+definitions:
+  env_json: &env_json
+    name: Gizli anahtarları .env.json'a yaz
+    script: |
+      cat > .env.json <<EOF
+      {
+        "RC_ANDROID_KEY": "$RC_ANDROID_KEY",
+        "RC_IOS_KEY": "$RC_IOS_KEY"
+      }
+      EOF
+
+workflows:
+  ios-testflight:
+    name: iOS · TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: OtoTV ASC
+    environment:
+      flutter: stable
+      xcode: latest
+      groups:
+        - ototv_secrets
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.ototv.app
+    scripts:
+      - *env_json
+      - name: Paketler
+        script: flutter pub get
+      - name: İmza profillerini uygula
+        script: xcode-project use-profiles
+      - name: IPA derle
+        script: |
+          LATEST=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID" || echo 0)
+          flutter build ipa --release \
+            --dart-define-from-file=.env.json \
+            --build-number=$((LATEST + 1)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+
+  android-internal:
+    name: Android · Google Play iç test
+    instance_type: linux_x2
+    max_build_duration: 45
+    environment:
+      flutter: stable
+      groups:
+        - ototv_secrets
+      android_signing:
+        - ototv_upload
+    scripts:
+      - *env_json
+      - name: Yükleme anahtarını bağla
+        script: |
+          cat > android/key.properties <<EOF
+          storeFile=$CM_KEYSTORE_PATH
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          keyPassword=$CM_KEY_PASSWORD
+          EOF
+      - name: Paketler
+        script: flutter pub get
+      - name: AAB derle
+        script: |
+          flutter build appbundle --release \
+            --dart-define-from-file=.env.json \
+            --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/**/outputs/**/*.aab
+    publishing:
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        submit_as_draft: true
