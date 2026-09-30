@@ -8,6 +8,7 @@ import '../../l10n/l10n.dart';
 import '../../platform/car_connection.dart';
 import '../../state/premium.dart';
 import '../premium/paywall_screen.dart';
+import '../../platform/airplay.dart';
 
 /// Araç bağlantı merkezi: Android Auto / CarPlay bağlantısını canlı gösterir.
 class CastScreen extends ConsumerWidget {
@@ -96,6 +97,8 @@ class CastScreen extends ConsumerWidget {
           _Step(n: 1, title: context.l10n.castStep1Title, body: context.l10n.castStep1Body),
           _Step(n: 2, title: context.l10n.castStep2Title, body: context.l10n.castStep2Body),
           _Step(n: 3, title: context.l10n.castStep3Title, body: context.l10n.castStep3Body),
+          if (AirPlay.isSupported)
+            _Step(n: 4, title: l.castAirplayTitle, body: l.castAirplayBody),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),

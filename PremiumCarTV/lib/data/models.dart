@@ -87,6 +87,7 @@ class Channel {
     this.serverItemId,
     this.startAt,
     this.extraHeaders = const {},
+    this.airplayUrl,
   });
 
   static const defaultGroup = 'Diğer';
@@ -109,6 +110,11 @@ class Channel {
   /// Sunucu kimlik doğrulama başlıkları. Anahtar URL'ye yazılmaz; böylece
   /// favoriler/konum kayıtlarına ve günlüklere sızmaz.
   final Map<String, String> extraHeaders;
+
+  /// Apple oynatıcısı (AirPlay) için ayrı adres; yoksa [url] kullanılır.
+  /// Jellyfin/Emby'de MKV yerine HLS'e dönüştürülmüş yayın. AirPlay alıcısı
+  /// (araç) yayını kendisi çektiği için oturum anahtarı adrestedir.
+  final String? airplayUrl;
 
   bool get isServerItem => serverItemId != null;
 
@@ -139,6 +145,7 @@ class Channel {
         serverItemId: serverItemId,
         startAt: startAt,
         extraHeaders: extraHeaders,
+        airplayUrl: airplayUrl,
       );
 }
 

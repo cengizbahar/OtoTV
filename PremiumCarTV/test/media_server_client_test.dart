@@ -103,6 +103,12 @@ void main() {
     expect(ch.group, 'Dizi');
     expect(ch.key, 'srv:s1:e5');
     expect(ch.startAt, const Duration(minutes: 3));
+
+    // AirPlay alıcısı başlık gönderemediği için HLS adresi anahtarı içerir.
+    final hls = Uri.parse(ch.airplayUrl!);
+    expect(hls.path, '/Videos/e5/master.m3u8');
+    expect(hls.queryParameters['api_key'], 'tok');
+    expect(hls.queryParameters['VideoCodec'], 'h264,hevc');
   });
 
   test('oturum yoksa istek atılmaz', () {

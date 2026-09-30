@@ -558,4 +558,14 @@ class L10nTr extends L10n {
 
   @override
   String get testBuildBadge => 'TEST SÜRÜMÜ · Plus mağazasız açık';
+
+  @override
+  String get airplayTooltip => 'AirPlay ile araç ekranına gönder';
+
+  @override
+  String get castAirplayTitle => 'Park halinde araç ekranında izle';
+
+  @override
+  String get castAirplayBody =>
+      'iPhone\'da oynatıcıdaki AirPlay düğmesine dokun ve listeden aracını seç. iOS 26+ ve destekleyen araçlarda, yalnızca park halinde çalışır.';
 }

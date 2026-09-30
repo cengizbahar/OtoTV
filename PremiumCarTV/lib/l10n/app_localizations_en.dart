@@ -605,4 +605,14 @@ class L10nEn extends L10n {
 
   @override
   String get testBuildBadge => 'TEST BUILD · Plus unlocked without store';
+
+  @override
+  String get airplayTooltip => 'Send to car screen with AirPlay';
+
+  @override
+  String get castAirplayTitle => 'Watch on the car screen while parked';
+
+  @override
+  String get castAirplayBody =>
+      'On iPhone, tap the AirPlay button in the player and pick your car. Works on iOS 26+ in supported cars, only while parked.';
 }

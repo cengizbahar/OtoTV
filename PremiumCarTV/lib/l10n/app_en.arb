@@ -162,5 +162,8 @@
   "castNeedsPlus": "OtoTV on the car screen requires Plus.",
   "castGetPlus": "See Plus",
   "castConnectedAudioMessage": "Your iPhone is connected to CarPlay. Sound from the channel you open in OtoTV plays through the car speakers.",
-  "testBuildBadge": "TEST BUILD · Plus unlocked without store"
+  "testBuildBadge": "TEST BUILD · Plus unlocked without store",
+  "airplayTooltip": "Send to car screen with AirPlay",
+  "castAirplayTitle": "Watch on the car screen while parked",
+  "castAirplayBody": "On iPhone, tap the AirPlay button in the player and pick your car. Works on iOS 26+ in supported cars, only while parked."
 }

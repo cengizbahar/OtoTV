@@ -15,6 +15,7 @@ import UIKit
     // CarPlay sahnesi Dart'taki içerik kataloğuna bu kanaldan ulaşır.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "OtoCarPlay") {
       CarPlayBridge.shared.attach(messenger: registrar.messenger())
+      AirPlayBridge.shared.attach(messenger: registrar.messenger())
     }
   }
 }

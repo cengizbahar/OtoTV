@@ -11,6 +11,14 @@ import '../../l10n/l10n.dart';
 import '../../platform/car_connection.dart';
 import '../../state/premium.dart';
 import '../premium/paywall_screen.dart';
+import '../../platform/airplay.dart';
+
+/// AirPlay ile araç ekranına / TV'ye gönder (Plus). Park halinde olup olmadığını
+/// iOS ve araç denetler; araç hareket edince görüntüyü sistem keser.
+Future<void> sendToAirPlay(BuildContext context, WidgetRef ref) async {
+  if (!await requirePlus(context, ref)) return;
+  await ref.read(playerProvider.notifier).handOffToAirPlay();
+}
 
 void openPlayer(BuildContext context) {
   // Araç ekranında (Android Auto park uygulaması) doğrudan yatay Araç Modu.
@@ -160,6 +168,12 @@ class _Details extends ConsumerWidget {
             onPressed: state.queue.length > 1 ? notifier.next : null,
             icon: const Icon(Icons.skip_next_rounded),
           ),
+          if (AirPlay.isSupported)
+            IconButton(
+              tooltip: context.l10n.airplayTooltip,
+              onPressed: () => sendToAirPlay(context, ref),
+              icon: const Icon(Icons.airplay_rounded, color: AppColors.gold),
+            ),
           IconButton(
             tooltip: isFav ? context.l10n.removeFavorite : context.l10n.addFavorite,
             onPressed: () => ref.read(favoritesProvider.notifier).toggle(channel),

@@ -14,6 +14,8 @@ import '../../widgets/common.dart';
 import '../../widgets/programme_line.dart';
 import '../../l10n/l10n.dart';
 import '../premium/paywall_screen.dart';
+import '../../platform/airplay.dart';
+import '../player/player_screen.dart';
 
 /// Araç Modu bir Plus özelliğidir; üye değilse önce satış ekranı açılır.
 Future<void> openCarModeGated(BuildContext context, WidgetRef ref) async {
@@ -270,6 +272,15 @@ class _Overlay extends ConsumerWidget {
                       style: const TextStyle(
                           fontSize: 34, fontWeight: FontWeight.w300, letterSpacing: 1)),
                   const SizedBox(width: 20),
+                  if (AirPlay.isSupported) ...[
+                    _RoundButton(
+                      icon: Icons.airplay_rounded,
+                      onTap: () => sendToAirPlay(context, ref),
+                      size: 60,
+                      label: context.l10n.airplayTooltip,
+                    ),
+                    const SizedBox(width: 12),
+                  ],
                   _RoundButton(icon: Icons.dark_mode_rounded, onTap: onDim, size: 60, label: context.l10n.dim),
                 ],
               ),

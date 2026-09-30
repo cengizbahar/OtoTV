@@ -1,4 +1,5 @@
 import AVFoundation
+import AVKit
 import CarPlay
 import Flutter
 import UIKit
@@ -200,5 +201,104 @@ class CarPlaySceneDelegate: UIResponder, CPTemplateApplicationSceneDelegate {
         item.setImage(image)
       }
     }.resume()
+  }
+}
+
+// MARK: - AirPlay (park halinde araç ekranı / TV)
+
+/// Videoyu Apple'ın oynatıcısında açar. Oynatıcının kendi AirPlay düğmesiyle
+/// CarPlay ekranına (iOS 26+, destekleyen araçlar), Apple TV'ye ya da AirPlay
+/// TV'ye gönderilir. Araç hareket edince görüntüyü iOS/araç keser.
+/// Dart tarafı: lib/platform/airplay.dart
+final class AirPlayBridge: NSObject, AVPlayerViewControllerDelegate {
+  static let shared = AirPlayBridge()
+
+  private var pending: FlutterResult?
+  private var player: AVPlayer?
+
+  func attach(messenger: FlutterBinaryMessenger) {
+    let channel = FlutterMethodChannel(name: "ototv/airplay", binaryMessenger: messenger)
+    channel.setMethodCallHandler { [weak self] call, result in
+      guard call.method == "play", let args = call.arguments as? [String: Any] else {
+        return result(FlutterMethodNotImplemented)
+      }
+      self?.present(args, result: result)
+    }
+  }
+
+  private func present(_ args: [String: Any], result: @escaping FlutterResult) {
+    guard pending == nil,
+          let raw = args["url"] as? String, let url = URL(string: raw),
+          let top = Self.topViewController() else {
+      return result(nil)
+    }
+
+    var options: [String: Any] = [:]
+    if let headers = args["headers"] as? [String: String], !headers.isEmpty {
+      // AVURLAsset'e özel HTTP başlıkları (User-Agent, Referer, sunucu anahtarı).
+      options["AVURLAssetHTTPHeaderFieldsKey"] = headers
+    }
+    let item = AVPlayerItem(asset: AVURLAsset(url: url, options: options))
+    item.externalMetadata = [
+      Self.metadata(.commonIdentifierTitle, args["title"] as? String),
+      Self.metadata(.iTunesMetadataTrackSubTitle, args["subtitle"] as? String),
+    ].compactMap { $0 }
+
+    let player = AVPlayer(playerItem: item)
+    player.allowsExternalPlayback = true
+    player.usesExternalPlaybackWhileExternalScreenIsActive = true
+    self.player = player
+    pending = result
+
+    let controller = AVPlayerViewController()
+    controller.player = player
+    controller.delegate = self
+    controller.modalPresentationStyle = .fullScreen
+    controller.allowsPictureInPicturePlayback = true
+
+    let start = args["start"] as? Double ?? 0
+    top.present(controller, animated: true) {
+      if start > 0 {
+        player.seek(to: CMTime(seconds: start, preferredTimescale: 600))
+      }
+      player.play()
+    }
+  }
+
+  /// Kullanıcı Apple oynatıcısını kapattı: konumu Dart'a döndür.
+  func playerViewController(
+    _ playerViewController: AVPlayerViewController,
+    willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator
+  ) {
+    _ = coordinator.animate(alongsideTransition: nil) { [weak self] context in
+      if !context.isCancelled { self?.finish() }
+    }
+  }
+
+  private func finish() {
+    guard let result = pending else { return }
+    let seconds = player?.currentTime().seconds ?? 0
+    player?.pause()
+    player = nil
+    pending = nil
+    result(seconds.isFinite ? seconds : 0)
+  }
+
+  private static func metadata(_ id: AVMetadataIdentifier, _ value: String?) -> AVMetadataItem? {
+    guard let value, !value.isEmpty else { return nil }
+    let item = AVMutableMetadataItem()
+    item.identifier = id
+    item.value = value as NSString
+    item.extendedLanguageTag = "und"
+    return item.copy() as? AVMetadataItem
+  }
+
+  private static func topViewController() -> UIViewController? {
+    let scene = UIApplication.shared.connectedScenes
+      .compactMap { $0 as? UIWindowScene }
+      .first { $0.activationState == .foregroundActive && $0.session.role == .windowApplication }
+    var top = scene?.windows.first { $0.isKeyWindow }?.rootViewController
+    while let presented = top?.presentedViewController { top = presented }
+    return top
   }
 }

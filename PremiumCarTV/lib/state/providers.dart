@@ -14,6 +14,7 @@ import '../data/models.dart';
 import '../data/secret_store.dart';
 import '../data/source_repository.dart';
 import 'background_audio.dart';
+import '../platform/airplay.dart';
 
 /// `main()` içinde gerçek örnekle override edilir.
 final prefsProvider = Provider<SharedPreferences>(
@@ -378,6 +379,19 @@ class PlayerNotifier extends Notifier<PlaybackState> {
     if (i >= 0 && i < state.queue.length - 1) {
       await play(state.queue[i + 1], queue: state.queue);
     }
+  }
+
+  /// iOS: yayını Apple oynatıcısına (AirPlay → CarPlay/TV) devreder. Kullanıcı
+  /// oradan dönünce film/bölüm kaldığı yerden OtoTV'de sürer.
+  Future<void> handOffToAirPlay() async {
+    final cur = state.current;
+    if (cur == null) return;
+    final live = player.state.duration.inSeconds < 60;
+    final pos = player.state.position;
+    await player.pause();
+    final back = await AirPlay.play(cur, start: live ? null : pos);
+    if (!live && back != null) await player.seek(back);
+    await player.play();
   }
 
   Future<void> stop() async {

@@ -305,5 +305,8 @@
   "castNeedsPlus": "Araç ekranında OtoTV'yi kullanmak için Plus gerekli.",
   "castGetPlus": "Plus'ı incele",
   "castConnectedAudioMessage": "iPhone'un CarPlay'e bağlı. OtoTV'de açtığın kanalın sesi araç hoparlöründen çalar.",
-  "testBuildBadge": "TEST SÜRÜMÜ · Plus mağazasız açık"
+  "testBuildBadge": "TEST SÜRÜMÜ · Plus mağazasız açık",
+  "airplayTooltip": "AirPlay ile araç ekranına gönder",
+  "castAirplayTitle": "Park halinde araç ekranında izle",
+  "castAirplayBody": "iPhone'da oynatıcıdaki AirPlay düğmesine dokun ve listeden aracını seç. iOS 26+ ve destekleyen araçlarda, yalnızca park halinde çalışır."
 }

@@ -1074,6 +1074,24 @@ abstract class L10n {
   /// In tr, this message translates to:
   /// **'TEST SÜRÜMÜ · Plus mağazasız açık'**
   String get testBuildBadge;
+
+  /// No description provided for @airplayTooltip.
+  ///
+  /// In tr, this message translates to:
+  /// **'AirPlay ile araç ekranına gönder'**
+  String get airplayTooltip;
+
+  /// No description provided for @castAirplayTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Park halinde araç ekranında izle'**
+  String get castAirplayTitle;
+
+  /// No description provided for @castAirplayBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'iPhone\'da oynatıcıdaki AirPlay düğmesine dokun ve listeden aracını seç. iOS 26+ ve destekleyen araçlarda, yalnızca park halinde çalışır.'**
+  String get castAirplayBody;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -220,6 +220,20 @@ class MediaServerClient {
   String streamUrl(String itemId) =>
       '$baseUrl/Videos/$itemId/stream?static=true&MediaSourceId=$itemId&DeviceId=$deviceId';
 
+  /// AirPlay / Apple oynatıcısı için HLS: sunucu, cihazın çözemeyeceği
+  /// biçimleri (MKV, DTS) H.264/AAC'ye dönüştürür.
+  String hlsUrl(String itemId) {
+    final q = {
+      'MediaSourceId': itemId,
+      'DeviceId': deviceId,
+      'VideoCodec': 'h264,hevc',
+      'AudioCodec': 'aac,ac3,eac3',
+      'SegmentContainer': 'ts',
+      'api_key': ?token,
+    };
+    return Uri.parse('$baseUrl/Videos/$itemId/master.m3u8').replace(queryParameters: q).toString();
+  }
+
   Channel toChannel(ServerItem item, {required String sourceId, String? group}) => Channel(
         name: item.displayTitle,
         url: streamUrl(item.id),
@@ -229,6 +243,7 @@ class MediaServerClient {
         serverItemId: item.id,
         startAt: item.played ? null : item.position,
         extraHeaders: authHeaders,
+        airplayUrl: hlsUrl(item.id),
       );
 
   Future<void> reportStart(String itemId, Duration position) => _report(
