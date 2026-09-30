@@ -4,14 +4,20 @@ OtoTV'nin mevcut CarPlay ses arayüzü, uygulama simgesinden açılan kanal
 listelerini ve Şimdi Oynatılıyor ekranını sağlar. Telefonun Flutter video
 ekranını CarPlay'e yansıtmaz.
 
-Runner hedefinin Debug, Profile ve Release yapılandırmaları
-`Runner/Runner.entitlements` dosyasını kullanır. Dosyada
-`com.apple.developer.carplay-audio` yetkisi bulunur. CarPlay sahnesi
-`Info.plist` içinde tanımlıdır ve `SceneDelegate.swift` ile uygulanır.
+`Runner/Runner.entitlements` dosyasında `com.apple.developer.carplay-audio`
+yetkisi bulunur. CarPlay sahnesi `Info.plist` içinde tanımlıdır ve
+`SceneDelegate.swift` ile uygulanır.
+
+> **Şu an bağlı değil.** Hesap değişikliğiyle (Bundle ID `com.ototvplus.app`)
+> CarPlay yetkisi yeni hesapta henüz onaylanmadı. Yetkisiz hesapta bu dosya
+> bağlıysa imzalama başarısız olur ve TestFlight derlemesi çıkmaz. Apple onayı
+> gelince `ios/Runner.xcodeproj/project.pbxproj` içinde Runner hedefinin
+> Debug, Profile ve Release ayarlarına şu satır geri eklenir:
+> `CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;`
 
 ## İmzalama ve yükleme
 
-1. Apple Developer hesabında `com.ototv.app` için CarPlay Audio yetkisinin
+1. Apple Developer hesabında `com.ototvplus.app` için CarPlay Audio yetkisinin
    onaylandığını doğrulayın. Henüz onay yoksa
    https://developer.apple.com/carplay/ üzerinden başvurun.
 2. Yetkiyi içeren yeni provisioning profili oluşturun. Geliştirme ve

@@ -551,4 +551,11 @@ class L10nTr extends L10n {
 
   @override
   String get castGetPlus => 'Plus\'ı incele';
+
+  @override
+  String get castConnectedAudioMessage =>
+      'iPhone\'un CarPlay\'e bağlı. OtoTV\'de açtığın kanalın sesi araç hoparlöründen çalar.';
+
+  @override
+  String get testBuildBadge => 'TEST SÜRÜMÜ · Plus mağazasız açık';
 }

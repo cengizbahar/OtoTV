@@ -1,4 +1,4 @@
-# Kullanıcı adındaki '&' karakteri Flutter'ın .bat betiklerini bozuyor.
+﻿# Kullanıcı adındaki '&' karakteri Flutter'ın .bat betiklerini bozuyor.
 # Bu betik, kullanıcı klasörlerini 8.3 kısa adla (CENGIZ~1) yönlendirir.
 # Kullanım:  . .\tools\flutter_env.ps1   ardından   flutter <komut>
 $short = 'C:\Users\CENGIZ~1'

@@ -1062,6 +1062,18 @@ abstract class L10n {
   /// In tr, this message translates to:
   /// **'Plus\'ı incele'**
   String get castGetPlus;
+
+  /// No description provided for @castConnectedAudioMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'iPhone\'un CarPlay\'e bağlı. OtoTV\'de açtığın kanalın sesi araç hoparlöründen çalar.'**
+  String get castConnectedAudioMessage;
+
+  /// No description provided for @testBuildBadge.
+  ///
+  /// In tr, this message translates to:
+  /// **'TEST SÜRÜMÜ · Plus mağazasız açık'**
+  String get testBuildBadge;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

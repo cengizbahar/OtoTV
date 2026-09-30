@@ -21,7 +21,7 @@ class CastScreen extends ConsumerWidget {
     final title = switch (link) {
       CarLink.androidAuto || CarLink.androidAutoDisplay => l.castConnectedAndroidAuto,
       CarLink.automotive => l.castConnectedAutomotive,
-      CarLink.carPlay => l.castConnectedCarPlay,
+      CarLink.carPlay || CarLink.carPlayAudio => l.castConnectedCarPlay,
       CarLink.none => l.castNotConnected,
     };
 
@@ -61,7 +61,11 @@ class CastScreen extends ConsumerWidget {
                 Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 Text(
-                  link.isConnected ? l.castConnectedMessage : l.castNotConnectedMessage,
+                  switch (link) {
+                    CarLink.none => l.castNotConnectedMessage,
+                    CarLink.carPlayAudio => l.castConnectedAudioMessage,
+                    _ => l.castConnectedMessage,
+                  },
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: AppColors.textSecondary, height: 1.45),
                 ),

@@ -160,5 +160,7 @@
   "castConnectedCarPlay": "CarPlay connected",
   "castConnectedMessage": "Open OtoTV from the apps on your car screen. Picking a channel plays its sound through the car speakers; video plays on your phone in Car Mode.",
   "castNeedsPlus": "OtoTV on the car screen requires Plus.",
-  "castGetPlus": "See Plus"
+  "castGetPlus": "See Plus",
+  "castConnectedAudioMessage": "Your iPhone is connected to CarPlay. Sound from the channel you open in OtoTV plays through the car speakers.",
+  "testBuildBadge": "TEST BUILD · Plus unlocked without store"
 }

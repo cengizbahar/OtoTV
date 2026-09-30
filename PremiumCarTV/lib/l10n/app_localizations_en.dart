@@ -598,4 +598,11 @@ class L10nEn extends L10n {
 
   @override
   String get castGetPlus => 'See Plus';
+
+  @override
+  String get castConnectedAudioMessage =>
+      'Your iPhone is connected to CarPlay. Sound from the channel you open in OtoTV plays through the car speakers.';
+
+  @override
+  String get testBuildBadge => 'TEST BUILD · Plus unlocked without store';
 }

@@ -7,9 +7,7 @@ import '../../core/theme.dart';
 import '../../l10n/l10n.dart';
 import '../../state/locale.dart';
 import '../../state/premium.dart';
-import '../../state/providers.dart';
 import '../premium/paywall_screen.dart';
-import '../sources/sources_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -19,7 +17,6 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
-    final sourceCount = ref.watch(sourcesProvider).length;
     final isPlus = ref.watch(premiumProvider.select((s) => s.isPlus));
     final locale = ref.watch(localeProvider);
 
@@ -53,6 +50,18 @@ class SettingsScreen extends ConsumerWidget {
                         const SizedBox(height: 2),
                         Text(isPlus ? l.plusActiveSubtitle : l.plusCardSubtitle,
                             style: const TextStyle(color: AppColors.goldLight)),
+                        if (PremiumConfig.testUnlock) ...[
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: AppColors.live,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(l.testBuildBadge,
+                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w900)),
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -61,15 +70,6 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          _Label(l.sectionMedia),
-          _Group(children: [
-            _Row(
-              icon: Icons.podcasts_rounded,
-              title: l.manageSources,
-              value: sourceCount == 0 ? 'M3U · Jellyfin · Emby' : l.sourceCount(sourceCount),
-              onTap: () => openSources(context),
-            ),
-          ]),
           _Label(l.sectionPreferences),
           _Group(children: [
             _Row(

@@ -9,9 +9,10 @@ import 'qr_scan_screen.dart';
 import '../../l10n/l10n.dart';
 import '../../state/premium.dart';
 import '../premium/paywall_screen.dart';
+import '../shell/app_shell.dart';
 
-void openSources(BuildContext context) => Navigator.of(context)
-    .push(MaterialPageRoute(builder: (_) => const SourcesScreen()));
+/// Kaynaklar artık alt menüde ayrı bir sekme.
+void openSources(BuildContext context) => goToTab(context, ShellTab.sources);
 
 class SourcesScreen extends ConsumerWidget {
   const SourcesScreen({super.key});

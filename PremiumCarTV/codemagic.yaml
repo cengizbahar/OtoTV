@@ -4,6 +4,8 @@
 #   • Ortam değişkeni grubu "ototv_secrets":
 #       RC_ANDROID_KEY, RC_IOS_KEY      RevenueCat genel SDK anahtarları
 #       APP_STORE_APPLE_ID              App Store Connect'teki uygulama kimliği (sayı)
+#       PLUS_TEST_UNLOCK                "true": TestFlight'ta Plus mağazasız açık.
+#                                       App Store'a gönderilecek derlemede "false"!
 #       GCLOUD_SERVICE_ACCOUNT_CREDENTIALS  Google Play hizmet hesabı JSON'u
 #   • Teams › Integrations › App Store Connect: "OtoTV ASC" adlı API anahtarı
 #   • Code signing identities › Android keystores: "ototv_upload" referanslı yükleme anahtarı
@@ -15,7 +17,8 @@ definitions:
       cat > .env.json <<EOF
       {
         "RC_ANDROID_KEY": "$RC_ANDROID_KEY",
-        "RC_IOS_KEY": "$RC_IOS_KEY"
+        "RC_IOS_KEY": "$RC_IOS_KEY",
+        "PLUS_TEST_UNLOCK": "${PLUS_TEST_UNLOCK:-false}"
       }
       EOF
 
@@ -33,7 +36,7 @@ workflows:
         - ototv_secrets
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.ototv.app
+        bundle_identifier: com.ototvplus.app
     scripts:
       - *env_json
       - name: Paketler

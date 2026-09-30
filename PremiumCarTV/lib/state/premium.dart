@@ -18,8 +18,14 @@ abstract final class PremiumConfig {
   /// RevenueCat panelindeki yetki (entitlement) kimliği.
   static const entitlement = 'plus';
 
-  /// Yalnızca geliştirme: mağaza olmadan Plus özelliklerini dener.
-  static const debugUnlock = bool.fromEnvironment('PLUS_DEBUG_UNLOCK') && !kReleaseMode;
+  /// TEST derlemeleri (TestFlight / test APK): Plus'ı mağazasız açar. Sürüm
+  /// modunda da çalışır; bu yüzden açıkken Ayarlar'da "TEST SÜRÜMÜ" rozeti
+  /// görünür. App Store / Play'e gönderilecek derlemede ASLA true olmamalı.
+  static const testUnlock = bool.fromEnvironment('PLUS_TEST_UNLOCK');
+
+  /// Yalnızca geliştirme derlemesi (debug/profile): mağaza olmadan Plus.
+  static const debugUnlock =
+      testUnlock || (bool.fromEnvironment('PLUS_DEBUG_UNLOCK') && !kReleaseMode);
 
   /// Ücretsiz sürümde eklenebilecek kaynak sayısı.
   static const freeSourceLimit = 2;

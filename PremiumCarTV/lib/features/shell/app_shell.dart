@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme.dart';
 import '../../widgets/common.dart';
@@ -8,35 +9,52 @@ import '../favorites/favorites_screen.dart';
 import '../home/home_screen.dart';
 import '../player/mini_player.dart';
 import '../settings/settings_screen.dart';
+import '../sources/sources_screen.dart';
 import '../../l10n/l10n.dart';
 
-/// Dört sekmeli ana iskelet. Her sekme kendi gezinme yığınını korur;
+enum ShellTab { home, favorites, sources, cast, settings }
+
+/// Seçili alt menü sekmesi; başka ekranlar da sekme değiştirebilsin diye provider.
+final shellTabProvider = NotifierProvider<ShellTabNotifier, ShellTab>(ShellTabNotifier.new);
+
+class ShellTabNotifier extends Notifier<ShellTab> {
+  @override
+  ShellTab build() => ShellTab.home;
+  void select(ShellTab tab) => state = tab;
+}
+
+/// Uygulamanın herhangi bir yerinden alt menü sekmesine geç.
+void goToTab(BuildContext context, ShellTab tab) =>
+    ProviderScope.containerOf(context, listen: false).read(shellTabProvider.notifier).select(tab);
+
+/// Beş sekmeli ana iskelet. Her sekme kendi gezinme yığınını korur;
 /// mini oynatıcı ve cam alt menü tüm sekmelerin üzerinde yüzer.
-class AppShell extends StatefulWidget {
+class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
 
   @override
-  State<AppShell> createState() => _AppShellState();
+  ConsumerState<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
-  int _index = 0;
-  final _navKeys = List.generate(4, (_) => GlobalKey<NavigatorState>());
+class _AppShellState extends ConsumerState<AppShell> {
+  final _navKeys = List.generate(ShellTab.values.length, (_) => GlobalKey<NavigatorState>());
 
   void _select(int i) {
     HapticFeedback.selectionClick();
-    if (i == _index) {
+    if (i == ref.read(shellTabProvider).index) {
       _navKeys[i].currentState?.popUntil((r) => r.isFirst);
     } else {
-      setState(() => _index = i);
+      ref.read(shellTabProvider.notifier).select(ShellTab.values[i]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final index = ref.watch(shellTabProvider).index;
     final tabs = <Widget>[
       const HomeScreen(),
       FavoritesScreen(onBrowse: () => _select(0)),
+      const SourcesScreen(),
       const CastScreen(),
       const SettingsScreen(),
     ];
@@ -45,11 +63,11 @@ class _AppShellState extends State<AppShell> {
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) return;
-        final nav = _navKeys[_index].currentState;
+        final nav = _navKeys[index].currentState;
         if (nav != null && nav.canPop()) {
           nav.pop();
-        } else if (_index != 0) {
-          setState(() => _index = 0);
+        } else if (index != 0) {
+          ref.read(shellTabProvider.notifier).select(ShellTab.home);
         } else {
           SystemNavigator.pop();
         }
@@ -57,7 +75,7 @@ class _AppShellState extends State<AppShell> {
       child: Scaffold(
         extendBody: true,
         body: IndexedStack(
-          index: _index,
+          index: index,
           children: [
             for (var i = 0; i < tabs.length; i++)
               Navigator(
@@ -73,7 +91,7 @@ class _AppShellState extends State<AppShell> {
             children: [
               const MiniPlayer(),
               const SizedBox(height: 10),
-              _GlassNavBar(index: _index, onSelect: _select),
+              _GlassNavBar(index: index, onSelect: _select),
             ],
           ),
         ),
@@ -90,6 +108,7 @@ class _GlassNavBar extends StatelessWidget {
   static const _icons = [
     (Icons.home_outlined, Icons.home_rounded),
     (Icons.favorite_border_rounded, Icons.favorite_rounded),
+    (Icons.playlist_add_outlined, Icons.playlist_add_check_rounded),
     (Icons.cast_outlined, Icons.cast_connected_rounded),
     (Icons.tune_outlined, Icons.tune_rounded),
   ];
@@ -97,7 +116,7 @@ class _GlassNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final labels = [l.navHome, l.navFavorites, l.navCast, l.navSettings];
+    final labels = [l.navHome, l.navFavorites, l.sources, l.navCast, l.navSettings];
     return Glass(
       radius: 30,
       padding: const EdgeInsets.all(6),
@@ -130,7 +149,7 @@ class _GlassNavBar extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         softWrap: false,
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 10.5,
                           fontWeight: i == index ? FontWeight.w700 : FontWeight.w500,
                           color: i == index ? AppColors.gold : AppColors.textSecondary,
                         ),

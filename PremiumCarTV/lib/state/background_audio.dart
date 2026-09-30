@@ -30,7 +30,7 @@ class OtoAudioHandler extends BaseAudioHandler with SeekHandler {
     return AudioService.init(
       builder: OtoAudioHandler.new,
       config: AudioServiceConfig(
-        androidNotificationChannelId: 'com.ototv.app.playback',
+        androidNotificationChannelId: 'com.ototvplus.app.playback',
         androidNotificationChannelName: l.notificationChannel,
         androidNotificationChannelDescription: l.notificationChannelDesc,
         androidNotificationIcon: 'drawable/ic_stat_ototv',

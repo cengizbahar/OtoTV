@@ -19,8 +19,11 @@ enum CarLink {
   /// Aracın kendi Android sistemi (Android Automotive OS).
   automotive,
 
-  /// iPhone, CarPlay ile bağlı.
-  carPlay;
+  /// iPhone CarPlay'e bağlı ve OtoTV'nin CarPlay ekranı açık.
+  carPlay,
+
+  /// iPhone CarPlay'e bağlı; ses araçta çalar (OtoTV CarPlay ekranı açık değil).
+  carPlayAudio;
 
   bool get isConnected => this != none;
   bool get isAndroidAuto => this == androidAuto || this == androidAutoDisplay;
@@ -40,7 +43,11 @@ final carLinkProvider = StreamProvider<CarLink>((ref) {
         );
   }
   if (Platform.isIOS) {
-    return CarPlayBridge.connection.map((c) => c ? CarLink.carPlay : CarLink.none);
+    return CarPlayBridge.connection.map((s) => switch (s) {
+          2 => CarLink.carPlay,
+          1 => CarLink.carPlayAudio,
+          _ => CarLink.none,
+        });
   }
   return Stream.value(CarLink.none);
 });

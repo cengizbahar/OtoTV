@@ -303,5 +303,7 @@
   "castConnectedCarPlay": "CarPlay bağlı",
   "castConnectedMessage": "Araç ekranındaki uygulamalardan OtoTV'yi aç. Kanal seçince sesi araç hoparlöründen çalar; video telefonda Araç Modu'nda oynar.",
   "castNeedsPlus": "Araç ekranında OtoTV'yi kullanmak için Plus gerekli.",
-  "castGetPlus": "Plus'ı incele"
+  "castGetPlus": "Plus'ı incele",
+  "castConnectedAudioMessage": "iPhone'un CarPlay'e bağlı. OtoTV'de açtığın kanalın sesi araç hoparlöründen çalar.",
+  "testBuildBadge": "TEST SÜRÜMÜ · Plus mağazasız açık"
 }

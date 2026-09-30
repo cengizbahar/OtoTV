@@ -53,15 +53,14 @@ abstract final class WebApps {
     allowedHosts: ['youtube.com', 'youtu.be', 'gstatic.com', 'ggpht.com', 'ytimg.com', 'googlevideo.com'],
   );
 
-  /// Netflix gömülü WebView'da oynatmaz; sistem tarayıcısında (Chrome Custom
-  /// Tab / Safari) açılır. Netflix uygulaması yüklü olsa bile ona yönlenmez.
+  /// Netflix sitesi OtoTV içinde açılır (giriş, göz atma). Netflix, gömülü
+  /// tarayıcıda video oynatmayı kendi tarafında engelleyebilir.
   static const netflix = WebApp(
     name: 'Netflix',
     url: 'https://www.netflix.com/',
     color: Color(0xFFE50914),
     icon: Icons.movie_filter_rounded,
-    inApp: false,
-    browser: true,
+    allowedHosts: ['netflix.com', 'nflxext.com', 'nflximg.net', 'nflxvideo.net', 'nflxso.net'],
   );
 
   static const all = [youtube, netflix];

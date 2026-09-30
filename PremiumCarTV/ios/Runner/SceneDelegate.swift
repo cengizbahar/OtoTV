@@ -1,3 +1,4 @@
+import AVFoundation
 import CarPlay
 import Flutter
 import UIKit
@@ -15,12 +16,41 @@ final class CarPlayBridge {
   private var channel: FlutterMethodChannel?
   private var readyHandlers: [() -> Void] = []
 
-  /// CarPlay ekranı şu an bağlı mı (Araca Yansıt sekmesi bunu gösterir).
+  /// CarPlay bağlı mı (Araca Yansıt sekmesi bunu gösterir). İki kaynaktan:
+  ///  • OtoTV'nin CarPlay sahnesi açıldı (Apple CarPlay izni gerekir)
+  ///  • iPhone'un ses çıkışı CarPlay'e geçti (izin gerekmez; kablolu ve kablosuz)
   private(set) var carConnected = false
+  private var sceneConnected = false
+  private var routeConnected = false
 
-  func setCarConnected(_ connected: Bool) {
-    carConnected = connected
-    channel?.invokeMethod("carConnected", arguments: connected)
+  func setSceneConnected(_ connected: Bool) {
+    sceneConnected = connected
+    publish()
+  }
+
+  /// Dart'a: 0 bağlı değil · 1 yalnızca ses CarPlay'de · 2 OtoTV CarPlay ekranında.
+  private var state: Int { sceneConnected ? 2 : (routeConnected ? 1 : 0) }
+  private var lastState = 0
+
+  private func publish() {
+    carConnected = sceneConnected || routeConnected
+    let now = state
+    guard now != lastState else { return }
+    lastState = now
+    channel?.invokeMethod("carConnected", arguments: now)
+  }
+
+  private func startRouteMonitoring() {
+    NotificationCenter.default.addObserver(
+      forName: AVAudioSession.routeChangeNotification, object: nil, queue: .main
+    ) { [weak self] _ in self?.checkRoute() }
+    checkRoute()
+  }
+
+  private func checkRoute() {
+    routeConnected = AVAudioSession.sharedInstance().currentRoute.outputs
+      .contains { $0.portType == .carAudio }
+    publish()
   }
 
   var isReady: Bool { channel != nil }
@@ -32,12 +62,13 @@ final class CarPlayBridge {
         self?.readyHandlers.forEach { $0() }
         result(nil)
       } else if call.method == "isCarConnected" {
-        result(self?.carConnected ?? false)
+        result(self?.state ?? 0)
       } else {
         result(FlutterMethodNotImplemented)
       }
     }
     self.channel = channel
+    startRouteMonitoring()
   }
 
   /// Dart hazır olduğunda (ör. uygulama doğrudan CarPlay'den açıldıysa) çağrılır.
@@ -75,7 +106,7 @@ class CarPlaySceneDelegate: UIResponder, CPTemplateApplicationSceneDelegate {
     didConnect interfaceController: CPInterfaceController
   ) {
     self.interfaceController = interfaceController
-    CarPlayBridge.shared.setCarConnected(true)
+    CarPlayBridge.shared.setSceneConnected(true)
     CarPlayBridge.shared.onReady { [weak self] in self?.loadRoot() }
     loadRoot()
   }
@@ -85,7 +116,7 @@ class CarPlaySceneDelegate: UIResponder, CPTemplateApplicationSceneDelegate {
     didDisconnectInterfaceController interfaceController: CPInterfaceController
   ) {
     self.interfaceController = nil
-    CarPlayBridge.shared.setCarConnected(false)
+    CarPlayBridge.shared.setSceneConnected(false)
   }
 
   private func loadRoot() {

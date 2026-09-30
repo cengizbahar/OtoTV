@@ -1,4 +1,4 @@
-package com.ototv.app
+package com.ototvplus.app
 
 import android.content.res.Configuration
 import android.os.Build

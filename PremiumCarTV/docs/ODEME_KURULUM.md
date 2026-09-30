@@ -25,9 +25,9 @@ içindeki `PremiumConfig.product*` sabitlerini de güncelle.
 1. **Apple Developer Program** üyeliği (yıllık 99 $): developer.apple.com/programs
 2. **App Store Connect › Anlaşmalar, Vergi ve Bankacılık**: *Ücretli Uygulamalar*
    anlaşmasını imzala, banka ve vergi bilgilerini gir. **Bu olmadan satın alma çalışmaz.**
-3. **Sertifikalar, Kimlikler ve Profiller › Identifiers**: `com.ototv.app` App ID oluştur
+3. **Sertifikalar, Kimlikler ve Profiller › Identifiers**: `com.ototvplus.app` App ID oluştur
    (In-App Purchase varsayılan olarak açıktır).
-4. **App Store Connect › Uygulamalar › +**: OtoTV'yi oluştur (Bundle ID: `com.ototv.app`).
+4. **App Store Connect › Uygulamalar › +**: OtoTV'yi oluştur (Bundle ID: `com.ototvplus.app`).
 5. **Uygulama › Abonelikler**: "OtoTV Plus" abonelik grubu → `ototv_plus_monthly` ve
    `ototv_plus_annual` ürünleri. Yıllığa **Tanıtım Teklifi › Ücretsiz, 1 hafta** ekle.
 6. **Uygulama › Uygulama İçi Satın Alımlar**: `ototv_plus_lifetime` (Tüketilmeyen).
@@ -40,7 +40,7 @@ içindeki `PremiumConfig.product*` sabitlerini de güncelle.
 
 1. **Google Play Console** hesabı (tek seferlik 25 $): play.google.com/console
 2. **Ödeme profili** oluştur (satıcı hesabı). **Bu olmadan satın alma çalışmaz.**
-3. OtoTV uygulamasını oluştur (paket adı: `com.ototv.app`).
+3. OtoTV uygulamasını oluştur (paket adı: `com.ototvplus.app`).
 4. **Yükleme anahtarı** oluştur (bir kez, kendi bilgisayarında):
    ```
    "C:\Program Files\Android\Android Studio\jbr\bin\keytool" -genkey -v -keystore C:\ototv-keys\ototv-upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias ototv-upload
@@ -62,8 +62,8 @@ içindeki `PremiumConfig.product*` sabitlerini de güncelle.
 ## 3. RevenueCat (ücretsiz, aylık 2.500 $ gelire kadar)
 
 1. revenuecat.com'da hesap aç, **OtoTV** projesi oluştur.
-2. **Apps**: iOS uygulaması (`com.ototv.app` + 1.8'deki `.p8` anahtarı) ve Android
-   uygulaması (`com.ototv.app` + 2.9'daki hizmet hesabı JSON'u) ekle.
+2. **Apps**: iOS uygulaması (`com.ototvplus.app` + 1.8'deki `.p8` anahtarı) ve Android
+   uygulaması (`com.ototvplus.app` + 2.9'daki hizmet hesabı JSON'u) ekle.
 3. **Products**: Üç ürünü her iki mağazadan içe aktar.
 4. **Entitlements**: kimliği tam olarak **`plus`** olan bir yetki oluştur, üç ürünü bağla.
 5. **Offerings**: "default" teklifine üç paket ekle: **Monthly**, **Annual**, **Lifetime**

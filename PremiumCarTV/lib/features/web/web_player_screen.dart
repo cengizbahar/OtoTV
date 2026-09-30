@@ -54,7 +54,15 @@ class _WebPlayerScreenState extends State<WebPlayerScreen> {
               )
             : const PlatformWebViewControllerCreationParams();
 
-    _controller = WebViewController.fromPlatformCreationParams(params)
+    _controller = WebViewController.fromPlatformCreationParams(
+      params,
+      // Yalnızca kopya korumalı video (DRM) iznine onay; kamera/mikrofon reddedilir.
+      onPermissionRequest: (request) {
+        final onlyDrm = request.types.isNotEmpty &&
+            request.types.every((t) => t == AndroidWebViewPermissionResourceType.protectedMediaId);
+        onlyDrm ? request.grant() : request.deny();
+      },
+    )
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(AppColors.background)
       ..setNavigationDelegate(NavigationDelegate(
